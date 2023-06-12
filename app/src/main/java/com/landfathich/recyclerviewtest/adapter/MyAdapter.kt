@@ -1,10 +1,9 @@
-package com.landfathich.recyclerviewtest
+package com.landfathich.recyclerviewtest.adapter
 
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
 class MyAdapter: RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 

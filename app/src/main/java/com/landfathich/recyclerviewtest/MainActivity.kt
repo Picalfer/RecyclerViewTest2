@@ -1,8 +1,11 @@
 package com.landfathich.recyclerviewtest
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
+import com.landfathich.recyclerviewtest.adapter.MyAdapter
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,5 +17,11 @@ class MainActivity : AppCompatActivity() {
         val adapter = MyAdapter()
         recyclerView.adapter = adapter
 
+        val next_btn = findViewById<Button>(R.id.next_btn)
+        next_btn.setOnClickListener {
+            val intent = Intent(this, ItemDecorationTestActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

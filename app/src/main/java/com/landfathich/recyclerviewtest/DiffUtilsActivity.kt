@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.landfathich.recyclerviewtest.adapter.Product
 import com.landfathich.recyclerviewtest.adapter.ProductAdapter
@@ -66,8 +67,18 @@ class DiffUtilsActivity : AppCompatActivity() {
             return itemIndex.text.toString().toInt() - 1
         }
 
+        fun updateData(newList: ArrayList<Product>) {
+            val oldList = adapter.data
+            val productDiff = ProductDiff(oldList, newList)
+            val resultDiff = DiffUtil.calculateDiff(productDiff)
+            adapter.data = newList
+            resultDiff.dispatchUpdatesTo(adapter)
+        }
+
         add.setOnClickListener {
-            adapter.data.add(
+            val newList = arrayListOf<Product>()
+            newList.addAll(adapter.data)
+            newList.add(
                 getIndex(),
                 Product(
                     adapter.data.size,
@@ -76,22 +87,26 @@ class DiffUtilsActivity : AppCompatActivity() {
                     "Lemons are eaten fresh, and are also used in the manufacture of confectionery and soft drinks, in the liquor and perfume industry."
                 )
             )
-            adapter.notifyItemInserted(getIndex())
+            updateData(newList)
         }
 
         change.setOnClickListener {
-            adapter.data[getIndex()] = Product(
+            val newList = arrayListOf<Product>()
+            newList.addAll(adapter.data)
+            newList[getIndex()] = Product(
                 adapter.data.size,
                 R.drawable.ic_strawberry,
                 "Strawberry",
                 "A perennial herbaceous plant 5-20 cm high, with a thick brown rhizome. \"Mustache\" is short. The stem is thin."
             )
-            adapter.notifyItemChanged(getIndex())
+            updateData(newList)
         }
 
         remove.setOnClickListener {
-            adapter.data.removeAt(getIndex())
-            adapter.notifyItemRemoved(getIndex())
+            val newList = arrayListOf<Product>()
+            newList.addAll(adapter.data)
+            newList.removeAt(getIndex())
+            updateData(newList)
         }
     }
 }

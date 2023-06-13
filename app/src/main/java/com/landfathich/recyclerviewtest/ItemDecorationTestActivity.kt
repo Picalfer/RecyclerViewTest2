@@ -23,11 +23,17 @@ class ItemDecorationTestActivity : AppCompatActivity() {
             Product(4, R.drawable.ic_strawberry, "Strawberry", "A perennial herbaceous plant 5-20 cm high, with a thick brown rhizome. \"Mustache\" is short. The stem is thin."),
             Product(5, R.drawable.ic_orange, "Orange", "Orange juice is widely used as a drink in restaurants and cafes.")
         ))
+
+        adapter.setHasStableIds(true) // подключаем StableIds
         recyclerView.adapter = adapter
         recyclerView.itemAnimator = MyItemAnimator(this) // так же можно getApplicationContext() или просто applicationContext
 
+        adapter.data[0].idIcon = R.drawable.ic_banana
+        adapter.notifyItemChanged(0, "icon")
+
         val add = findViewById<Button>(R.id.add)
         val remove = findViewById<Button>(R.id.remove)
+
         add.setOnClickListener {
             adapter.data.add(
                 Product(adapter.data.size, R.drawable.ic_orange, "Orange", "Orange juice is widely used as a drink in restaurants and cafes.")

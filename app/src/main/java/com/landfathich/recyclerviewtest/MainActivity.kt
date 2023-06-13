@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.landfathich.recyclerviewtest.adapter.MyAdapter
+import com.landfathich.recyclerviewtest.decorator.MyItemDecoration
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = MyAdapter()
         recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(MyItemDecoration())
 
         val next_btn = findViewById<Button>(R.id.next_btn)
         next_btn.setOnClickListener {

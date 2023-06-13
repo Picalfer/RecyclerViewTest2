@@ -4,40 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ItemDecorationTestActivity">
-
-    <Button
-        android:id="@+id/next_btn2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="next"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".DiffUtilsActivity">
 
     <LinearLayout
-
         android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/next_btn2"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/next_btn2">
+        app:layout_constraintTop_toTopOf="parent">
+        
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/item_index"
+            android:hint="index" />
 
         <Button
             android:id="@+id/add"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_margin="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:text="Add" />
 
         <Button
             android:id="@+id/remove"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_margin="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:text="Remove" />
+
+        <Button
+            android:id="@+id/change"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Change" />
 
     </LinearLayout>
 

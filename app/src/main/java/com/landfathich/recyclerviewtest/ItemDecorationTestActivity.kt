@@ -1,5 +1,6 @@
 package com.landfathich.recyclerviewtest
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Adapter
@@ -52,6 +53,13 @@ class ItemDecorationTestActivity : AppCompatActivity() {
     private fun initializeButtons(adapter: ProductAdapter) {
         val add = findViewById<Button>(R.id.add)
         val remove = findViewById<Button>(R.id.remove)
+        val next_btn = findViewById<Button>(R.id.next_btn2)
+
+        next_btn.setOnClickListener {
+            val intent = Intent(this, DiffUtilsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         add.setOnClickListener {
             adapter.data.add(

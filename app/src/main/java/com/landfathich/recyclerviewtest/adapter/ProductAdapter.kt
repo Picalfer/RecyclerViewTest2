@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.landfathich.recyclerviewtest.R
 
-class ProductAdapter(val data: ArrayList<Product>) :
+class ProductAdapter(var data: ArrayList<Product>) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
 

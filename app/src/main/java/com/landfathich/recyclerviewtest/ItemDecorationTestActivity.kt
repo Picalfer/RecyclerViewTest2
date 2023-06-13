@@ -2,7 +2,9 @@ package com.landfathich.recyclerviewtest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Adapter
 import android.widget.Button
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.landfathich.recyclerviewtest.adapter.Product
 import com.landfathich.recyclerviewtest.adapter.ProductAdapter
@@ -24,13 +26,30 @@ class ItemDecorationTestActivity : AppCompatActivity() {
             Product(5, R.drawable.ic_orange, "Orange", "Orange juice is widely used as a drink in restaurants and cafes.")
         ))
 
+        val newData = arrayListOf(
+            Product(0, R.drawable.ic_apple, "Apple", "Juicy Apple fruit, which is eaten fresh, serves as a raw material in cooking and for making drinks."),
+            Product(1, R.drawable.ic_banana, "Banana", "It is one of the oldest food crops, and for tropical countries it is the most important food plant and the main export item."),
+            Product(2, R.drawable.ic_lemon, "Lemon", "Lemons are eaten fresh, and are also used in the manufacture of confectionery and soft drinks, in the liquor and perfume industry."),
+        )
+
         adapter.setHasStableIds(true) // подключаем StableIds
         recyclerView.adapter = adapter
+
         recyclerView.itemAnimator = MyItemAnimator(this) // так же можно getApplicationContext() или просто applicationContext
 
         adapter.data[0].idIcon = R.drawable.ic_banana
         adapter.notifyItemChanged(0, "icon")
 
+        val diff = ProductDiff(adapter.data, newData)
+        val diffResult = DiffUtil.calculateDiff(diff)
+
+        adapter.data = newData
+        diffResult.dispatchUpdatesTo(adapter)
+
+        initializeButtons(adapter)
+    }
+
+    private fun initializeButtons(adapter: ProductAdapter) {
         val add = findViewById<Button>(R.id.add)
         val remove = findViewById<Button>(R.id.remove)
 

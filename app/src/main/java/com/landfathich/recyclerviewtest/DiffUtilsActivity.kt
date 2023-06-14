@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.landfathich.recyclerviewtest.adapter.Product
+import com.landfathich.recyclerviewtest.model.Product
 import com.landfathich.recyclerviewtest.adapter.ProductAdapter
 
 class DiffUtilsActivity : AppCompatActivity() {
@@ -15,8 +15,8 @@ class DiffUtilsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_diff_utils)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-        val adapter = ProductAdapter(
-            arrayListOf(
+        val adapter = ProductAdapter()
+           adapter.items =  arrayListOf(
                 Product(
                     0,
                     R.drawable.ic_apple,
@@ -54,7 +54,7 @@ class DiffUtilsActivity : AppCompatActivity() {
                     "Orange juice is widely used as a drink in restaurants and cafes."
                 )
             )
-        )
+
 
         recyclerView.adapter = adapter
 
@@ -67,46 +67,46 @@ class DiffUtilsActivity : AppCompatActivity() {
             return itemIndex.text.toString().toInt() - 1
         }
 
-        fun updateData(newList: ArrayList<Product>) {
+        /*fun updateData(newList: ArrayList<Product>) {
             val oldList = adapter.data
             val productDiff = ProductDiff(oldList, newList)
             val resultDiff = DiffUtil.calculateDiff(productDiff)
             adapter.data = newList
             resultDiff.dispatchUpdatesTo(adapter)
-        }
+        }*/
 
         add.setOnClickListener {
             val newList = arrayListOf<Product>()
-            newList.addAll(adapter.data)
+            newList.addAll(adapter.items as ArrayList<Product>)
             newList.add(
                 getIndex(),
                 Product(
-                    adapter.data.size,
+                    adapter.itemCount,
                     R.drawable.ic_lemon,
                     "Lemon",
                     "Lemons are eaten fresh, and are also used in the manufacture of confectionery and soft drinks, in the liquor and perfume industry."
                 )
             )
-            updateData(newList)
+            // updateData(newList)
         }
 
         change.setOnClickListener {
             val newList = arrayListOf<Product>()
-            newList.addAll(adapter.data)
+            newList.addAll(adapter.items as ArrayList<Product>)
             newList[getIndex()] = Product(
-                adapter.data.size,
+                adapter.itemCount,
                 R.drawable.ic_strawberry,
                 "Strawberry",
                 "A perennial herbaceous plant 5-20 cm high, with a thick brown rhizome. \"Mustache\" is short. The stem is thin."
             )
-            updateData(newList)
+            //updateData(newList)
         }
 
         remove.setOnClickListener {
             val newList = arrayListOf<Product>()
-            newList.addAll(adapter.data)
+            newList.addAll(adapter.items as Array<Product>)
             newList.removeAt(getIndex())
-            updateData(newList)
+            //updateData(newList)
         }
     }
 }

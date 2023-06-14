@@ -1,7 +1,7 @@
 package com.landfathich.recyclerviewtest
 
 import androidx.recyclerview.widget.DiffUtil
-import com.landfathich.recyclerviewtest.adapter.Product
+import com.landfathich.recyclerviewtest.model.Product
 
 class ProductDiff(val oldList: ArrayList<Product>, val newList: ArrayList<Product>) : DiffUtil.Callback() {
     override fun getOldListSize(): Int {

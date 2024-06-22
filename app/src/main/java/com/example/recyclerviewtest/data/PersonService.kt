@@ -7,6 +7,7 @@ import java.util.Collections
 class PersonService {
 
     private var persons = mutableListOf<Person>()
+    private var listeners = mutableListOf<PersonListener>()
 
     init {
         val faker = Faker.instance()
@@ -24,12 +25,25 @@ class PersonService {
 
     fun getPersons() = persons
 
+    fun addListener(listener: PersonListener) {
+        listeners.add(listener)
+        listener.invoke(persons)
+    }
+
+    fun removeListener(listener: PersonListener) {
+        listeners.remove(listener)
+        listener.invoke(persons)
+    }
+
+    private fun notifyChanges() = listeners.forEach { it.invoke(persons) }
+
     fun likePerson(person: Person) {
         val index = persons.indexOfFirst { it.id == person.id } // находим индекс человека в списке
         if (index == -1) return // останавливаем, если не находим человека
 
         persons = ArrayList(persons) // создаем новый список
         persons[index] = persons[index].copy(isLiked = !persons[index].isLiked) // меняем isLike на противоположное значение
+        notifyChanges()
     }
 
     fun removePerson(person: Person) {
@@ -38,6 +52,7 @@ class PersonService {
 
         persons = ArrayList(persons)
         persons.removeAt(index)
+        notifyChanges()
     }
 
     fun movePerson(person: Person, moveBy: Int) {
@@ -47,6 +62,7 @@ class PersonService {
         val newIndex = oldIndex + moveBy // вычисляем новый индекс, на котором должен находится человек
         persons = ArrayList(persons)
         Collections.swap(persons, oldIndex, newIndex) // меняем местами людей
+        notifyChanges()
     }
 
     companion object {
@@ -64,3 +80,5 @@ class PersonService {
         )
     }
 }
+
+typealias PersonListener = (persons: List<Person>) -> Unit

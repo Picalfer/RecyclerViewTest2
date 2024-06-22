@@ -2,6 +2,7 @@ package com.example.recyclerviewtest.data
 
 import com.example.recyclerviewtest.data.model.Person
 import com.github.javafaker.Faker
+import java.util.Collections
 
 class PersonService {
 
@@ -22,6 +23,31 @@ class PersonService {
     }
 
     fun getPersons() = persons
+
+    fun likePerson(person: Person) {
+        val index = persons.indexOfFirst { it.id == person.id } // находим индекс человека в списке
+        if (index == -1) return // останавливаем, если не находим человека
+
+        persons = ArrayList(persons) // создаем новый список
+        persons[index] = persons[index].copy(isLiked = !persons[index].isLiked) // меняем isLike на противоположное значение
+    }
+
+    fun removePerson(person: Person) {
+        val index = persons.indexOfFirst { it.id == person.id }
+        if (index == -1) return
+
+        persons = ArrayList(persons)
+        persons.removeAt(index)
+    }
+
+    fun movePerson(person: Person, moveBy: Int) {
+        val oldIndex = persons.indexOfFirst { it.id == person.id }
+        if (oldIndex == -1) return
+
+        val newIndex = oldIndex + moveBy // вычисляем новый индекс, на котором должен находится человек
+        persons = ArrayList(persons)
+        Collections.swap(persons, oldIndex, newIndex) // меняем местами людей
+    }
 
     companion object {
         private val IMAGES = mutableListOf(
